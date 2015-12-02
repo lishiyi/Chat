@@ -68,16 +68,18 @@ System.out.println("a client connected");
 		}
 		
 		public void send(String str){
-			try {
-				dos.writeUTF(str);
-			} catch (IOException e) {
-				System.out.println("Send failed...");
-				e.printStackTrace();
-			}
+
+				try {
+					dos.writeUTF(str);
+				} catch (IOException e) {
+					clients.remove(this);
+					System.out.println("对方退出了， 我从list里面去除了");
+				}
 		}
 		
 		@Override
 		public void run() {
+			//Client c = null;
 			try {
 				while(bConnected){
 					String str = dis.readUTF();
@@ -88,7 +90,10 @@ System.out.println(str);
 					}
 				}
 
-			} catch(EOFException e){
+			} catch(SocketException e){
+				System.out.println("Client Quit");
+			}
+			catch(EOFException e){
 				System.out.println("Client Closed");
 			} catch (IOException e) {
 				e.printStackTrace();

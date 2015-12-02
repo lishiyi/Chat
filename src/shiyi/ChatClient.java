@@ -118,7 +118,11 @@ System.out.println("connected");
 				}
 			} catch (SocketException e1){
 				System.out.println("退出了，bye");
-				e1.printStackTrace();
+				//e1.printStackTrace();
+			}
+			catch (EOFException e){
+				System.out.println("退出了，bye bybyby");
+				//e.printStackTrace();
 			}
 			catch (IOException e){
 				e.printStackTrace();
